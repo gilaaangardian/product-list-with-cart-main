@@ -3,6 +3,10 @@ const allDessertCards = document.querySelectorAll(".dessert");
 const cartItemsContainer = document.querySelector(".cart-items-container");
 const cartEmpty = document.querySelector(".cart-empty");
 const cartTotalItems = document.querySelector(".cart-total-items");
+const orderTotalPrice = document.querySelector(".order-total-price");
+const cartItemOrderTotal = document.querySelector(".cart-item-order-total");
+const cartCarbonNeutral = document.querySelector(".cart-carbon-neutral");
+const btnConfirmOrder = document.querySelector(".btn-confirm-order");
 
 // object to hold data
 const cartData = {};
@@ -70,6 +74,7 @@ allDessertCards.forEach((dessert) => {
   });
 });
 
+// action to run when btnMinus < 1 and btn close ite clicked
 function updateCardUI(card) {
   const dessert = document.querySelector(`[data-id="${card}"]`);
   const btnCard = dessert.querySelector(".btn-card");
@@ -98,13 +103,21 @@ function updateCartDisplay() {
     // maka tampilkan display kosong
     cartEmpty.style.display = "flex";
     cartItemsContainer.style.display = "none";
+    cartItemOrderTotal.style.display = "none";
+    cartCarbonNeutral.style.display = "none";
+    btnConfirmOrder.style.display = "none";
   } else {
     // then show the empty display
     cartEmpty.style.display = "none";
     cartItemsContainer.style.display = "flex";
+    cartItemOrderTotal.style.display = "flex";
+    cartCarbonNeutral.style.display = "flex";
+    btnConfirmOrder.style.display = "inline-block";
 
     // total items in cart
     let totalQty = 0;
+    // order total item in cart
+    let orderTotal = 0;
 
     // print (render) everything that is in the cart
     for (const dessertId in cartData) {
@@ -113,6 +126,8 @@ function updateCartDisplay() {
       const itemPrice = cartData[dessertId].price; // get the original price
       // update the total items in cart
       totalQty += quantity;
+      // update the order total
+      orderTotal += quantity * itemPrice;
 
       // create cart-item
       const itemHTML = `
@@ -121,18 +136,19 @@ function updateCartDisplay() {
             <h4 class="item-name">${name}</h4>
             <div class="item-detail">
               <p class="item-qty">${quantity}x</p>
-              <p class="item-price">&commat; &dollar;${itemPrice}</p>
-              <p class="item-total">&dollar;${quantity * itemPrice}</p>
+              <p class="item-price">&commat; &dollar;${itemPrice.toFixed(2)}</p>
+              <p class="item-total">&dollar;${(quantity * itemPrice).toFixed(2)}</p>
             </div>
           </div>
           <button type="button" class="item-cart-btn" data-id="${dessertId}"><i class="far fa-times-circle"></i></button>
-        </div>`;
+        </div><hr />`;
 
       // add the new HTML to the container
       cartItemsContainer.innerHTML += itemHTML;
     }
     // update the total items in the cart
     cartTotalItems.textContent = totalQty;
+    orderTotalPrice.innerHTML = `&dollar;${orderTotal.toFixed(2)}`;
   }
 }
 

@@ -232,6 +232,12 @@ main {
   /* padding: 20px 20px 20px 0; */
 }
 
+.cart-contents {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
 .cart-empty {
   display: flex;
   flex-direction: column;
@@ -260,7 +266,11 @@ main {
   display: flex;
   flex-direction: column;
   gap: 25px;
-  display: none;
+  /* display: none; */
+}
+
+.cart-items-container hr {
+  color: rgba(0, 0, 0, 0.3);
 }
 
 .cart-item {
@@ -293,6 +303,7 @@ main {
 .item-name {
   font-size: 1.1rem;
   text-transform: capitalize;
+  color: hsl(14, 65%, 9%);
 }
 
 .item-detail {
@@ -317,4 +328,68 @@ main {
   background: none;
   cursor: pointer;
   color: hsl(7, 20%, 60%);
+}
+
+.cart-item-order-total {
+  /* border: 1px solid red; */
+  display: none;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  text-transform: capitalize;
+  font-family: "Red Hat Text SemiBold", Arial, Helvetica, sans-serif;
+  color: hsl(14, 65%, 9%);
+}
+
+.order-total-price {
+  font-family: "Red Hat Text Bold", Arial, Helvetica, sans-serif;
+  font-size: 1.6rem;
+  color: hsl(14, 65%, 9%);
+}
+
+.cart-carbon-neutral {
+  background-color: hsl(13, 31%, 94%);
+  display: none;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 10px;
+  font-size: 0.9rem;
+  color: hsl(14, 65%, 9%);
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+.carbon-neutral-text span {
+  font-family: "Red Hat Text SemiBold", Arial, Helvetica, sans-serif;
+}
+
+.btn-confirm-order {
+  display: none;
+  padding: 15px 0;
+  font-size: 1.1rem;
+  text-transform: capitalize;
+  background-color: hsl(14, 86%, 42%);
+  border-style: none;
+  color: hsl(20, 50%, 98%);
+  cursor: pointer;
+  border-radius: 25px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  -ms-border-radius: 25px;
+  -o-border-radius: 25px;
+  transition: background-color 250ms ease;
+  -webkit-transition: background-color 250ms ease;
+  -moz-transition: background-color 250ms ease;
+  -ms-transition: background-color 250ms ease;
+  -o-transition: background-color 250ms ease;
+}
+
+.btn-confirm-order:hover {
+  background-color: hsl(14, 78%, 41%);
 }
