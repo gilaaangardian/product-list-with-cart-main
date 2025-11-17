@@ -40,6 +40,7 @@ body {
 main {
   margin: 10px 10px 0 10px;
   padding: 20px 0;
+  position: relative;
 }
 
 .main-title {
@@ -392,4 +393,152 @@ main {
 
 .btn-confirm-order:hover {
   background-color: hsl(14, 78%, 41%);
+}
+
+.main-shadow {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.order-confirmed {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 80%;
+  padding: 25px 15px;
+  background-color: hsl(20, 50%, 98%);
+  display: flex;
+  flex-direction: column;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  gap: 20px;
+  overflow: scroll;
+}
+
+.order-confirmed img {
+  width: 40px;
+  height: auto;
+}
+
+.order-confirmed__title {
+  text-transform: capitalize;
+  font-size: 2.5rem;
+  line-height: 45px;
+  font-family: "Red Hat Text Bold", Arial, Helvetica, sans-serif;
+  margin-bottom: 15px;
+}
+
+.order-confirmed__subtitle {
+  font-size: 0.9;
+  font-family: "Red Hat SemiBold", Arial, Helvetica, sans-serif;
+  color: hsl(7, 20%, 60%);
+}
+
+.order-confirmed__items-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 15px 20px;
+  background-color: hsl(13, 31%, 94%);
+}
+
+.order-confirmed__items {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-height: 250px;
+  overflow: scroll;
+}
+
+.order-confirmed__item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.order-confirmed__grand-total {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.order-confirmed__grand-total-text {
+  text-transform: capitalize;
+  font-family: "Red Hat Text SemiBold", Arial, Helvetica, sans-serif;
+  color: hsl(12, 20%, 44%);
+}
+
+.order-confirmed__grand-total-price {
+  font-family: "Red Hat Text Bold";
+  font-size: 1.4rem;
+  color: hsl(14, 65%, 9%);
+}
+
+.order-confirmed__item-img {
+  width: 60px;
+}
+
+.order-confirmed__item-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+  width: 100%;
+}
+
+.order-confirmed__item-name {
+  color: hsl(14, 65%, 9%);
+  font-family: "Red Hat Text SemiBold";
+  text-transform: capitalize;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.order-confirmed__item-pricing {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+
+.order-confirmed__item-qty {
+  font-family: "Red Hat Text SemiBold", Arial, Helvetica, sans-serif;
+  color: hsl(14, 86%, 42%);
+}
+
+.order-confirmed__item-price {
+  color: hsl(7, 20%, 60%);
+}
+
+.order-confirmed__item-subtotal {
+  font-family: "Red Hat Text SemiBold", Arial, Helvetica, sans-serif;
+  color: hsl(14, 65%, 9%);
+}
+
+.order-confirmed__button {
+  padding: 15px 0;
+  text-transform: capitalize;
+  font-family: "Red Hat Text SemiBold";
+  cursor: pointer;
+  background-color: hsl(14, 86%, 42%);
+  border-style: none;
+  color: hsl(20, 50%, 98%);
+  font-size: 1.1rem;
+  border-radius: 25px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  -ms-border-radius: 25px;
+  -o-border-radius: 25px;
 }

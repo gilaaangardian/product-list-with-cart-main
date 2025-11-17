@@ -7,6 +7,10 @@ const orderTotalPrice = document.querySelector(".order-total-price");
 const cartItemOrderTotal = document.querySelector(".cart-item-order-total");
 const cartCarbonNeutral = document.querySelector(".cart-carbon-neutral");
 const btnConfirmOrder = document.querySelector(".btn-confirm-order");
+const mainShadow = document.querySelector(".main-shadow");
+const orderConfirmedItems = document.querySelector(".order-confirmed__items");
+const orderConfirmedGrandTotalPrice = document.querySelector(".order-confirmed__grand-total-price");
+const orderConfirmedBtn = document.querySelector(".order-confirmed__button");
 
 // object to hold data
 const cartData = {};
@@ -27,6 +31,9 @@ allDessertCards.forEach((dessert) => {
   const nameTag = description.querySelector(".name");
   const nameText = nameTag.textContent;
   const dessertId = dessert.dataset.id;
+  const styles = window.getComputedStyle(dessert);
+  const imageAddress = styles.backgroundImage;
+  const imageAddressText = imageAddress.replace(/url\(["']?|["']?\)/g, "");
 
   // action to run when an item is selected
   function selectedItem() {
@@ -36,7 +43,8 @@ allDessertCards.forEach((dessert) => {
     btnCard.style.border = "1.5px solid hsla(14, 71%, 51%, 1.00)";
     dessert.style.border = "3px solid hsl(14, 86%, 42%)";
     // insert data into the object
-    cartData[dessertId] = { qty: 1, price: priceFinal, name: nameText };
+    cartData[dessertId] = { qty: 1, price: priceFinal, name: nameText, image: imageAddressText };
+
     // update the cart
     updateCartDisplay();
   }
@@ -80,6 +88,7 @@ function updateCardUI(card) {
   const btnCard = dessert.querySelector(".btn-card");
   const beforeClick = dessert.querySelector(".before-click");
   const afterClick = dessert.querySelector(".after-click");
+  const itemQuantity = dessert.querySelector(".item-quantity");
 
   afterClick.style.display = "none";
   beforeClick.style.display = "flex";
@@ -89,6 +98,9 @@ function updateCardUI(card) {
 
   // delete data from the object
   delete cartData[card];
+  // update quantity card
+  itemQuantity.textContent = "1";
+
   // update the cart
   updateCartDisplay();
 }
@@ -106,6 +118,7 @@ function updateCartDisplay() {
     cartItemOrderTotal.style.display = "none";
     cartCarbonNeutral.style.display = "none";
     btnConfirmOrder.style.display = "none";
+    cartTotalItems.textContent = "0";
   } else {
     // then show the empty display
     cartEmpty.style.display = "none";
@@ -152,6 +165,40 @@ function updateCartDisplay() {
   }
 }
 
+function orderConfirmed() {
+  mainShadow.style.opacity = "1";
+  mainShadow.style.visibility = "visible";
+  orderConfirmedItems.innerHTML = "";
+
+  if (Object.keys(cartData).length > 0) {
+    let orderTotal = 0;
+    for (const dessertId in cartData) {
+      const name = cartData[dessertId].name;
+      const qty = cartData[dessertId].qty;
+      const itemPrice = cartData[dessertId].price;
+      const image = cartData[dessertId].image;
+
+      orderTotal += qty * itemPrice;
+
+      const orderConfirmedItem = `
+      <div class="order-confirmed__item">
+        <img src="${image}" alt="Tiramisu Thumbnail" class="order-confirmed__item-img" />
+          <div class="order-confirmed__item-detail">
+            <p class="order-confirmed__item-name">${name}</p>
+              <div class="order-confirmed__item-pricing">
+                <p class="order-confirmed__item-qty">${qty}x</p>
+                <p class="order-confirmed__item-price">&commat; &dollar;${itemPrice.toFixed(2)}</p>
+              </div>
+           </div>
+        <p class="order-confirmed__item-subtotal">&dollar;${(qty * itemPrice).toFixed(2)}</p>
+      </div>`;
+
+      orderConfirmedItems.innerHTML += orderConfirmedItem;
+    }
+    orderConfirmedGrandTotalPrice.innerHTML = `&dollar;${orderTotal.toFixed(2)}`;
+  }
+}
+
 // add event listener to the close button(s)
 cartItemsContainer.addEventListener("click", function (event) {
   const closeBtn = event.target.closest(".item-cart-btn");
@@ -161,5 +208,13 @@ cartItemsContainer.addEventListener("click", function (event) {
     // then send its dataset to the updateCardUI function
     const dessertId = closeBtn.dataset.id;
     updateCardUI(dessertId);
+  }
+});
+
+btnConfirmOrder.addEventListener("click", orderConfirmed);
+mainShadow.addEventListener("click", function (event) {
+  if (event.target === this) {
+    mainShadow.style.opacity = "0";
+    mainShadow.style.visibility = "hidden";
   }
 });
