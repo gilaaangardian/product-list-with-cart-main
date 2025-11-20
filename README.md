@@ -14,6 +14,8 @@ Ini adalah solusi saya untuk challenge "[Product List With Main Page](https://ww
 
 ---
 
+## 💻 Teknologi yang Digunakan (Tech Stack)
+
 - **HTML5 Semantik:** Untuk struktur halaman yang bersih dan aksesibel.
 - **CSS3:** Menggunakan Flexbox dan CSS Grid untuk layout yang responsif.
 - **JavaScript (Vanilla JS):**

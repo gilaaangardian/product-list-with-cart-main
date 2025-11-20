@@ -165,24 +165,37 @@ function updateCartDisplay() {
   }
 }
 
+// function run when user clicks confirm order
 function orderConfirmed() {
+  // display the cart confirm order
   mainShadow.style.opacity = "1";
   mainShadow.style.visibility = "visible";
   orderConfirmedItems.innerHTML = "";
 
+  // if the object has contents (is not empty)
   if (Object.keys(cartData).length > 0) {
+    // initialize order total
     let orderTotal = 0;
+    // getting data from the object
     for (const dessertId in cartData) {
       const name = cartData[dessertId].name;
       const qty = cartData[dessertId].qty;
       const itemPrice = cartData[dessertId].price;
       const image = cartData[dessertId].image;
+      const altImage = name
+        .split(" ")
+        .map((word) => {
+          return word.charAt(0).toUpperCase() + word.slice(1);
+        })
+        .join(" ");
 
+      // update order total
       orderTotal += qty * itemPrice;
 
+      // update card confirm order
       const orderConfirmedItem = `
       <div class="order-confirmed__item">
-        <img src="${image}" alt="Tiramisu Thumbnail" class="order-confirmed__item-img" />
+        <img src="${image}" alt="${altImage}" class="order-confirmed__item-img" />
           <div class="order-confirmed__item-detail">
             <p class="order-confirmed__item-name">${name}</p>
               <div class="order-confirmed__item-pricing">
@@ -211,7 +224,9 @@ cartItemsContainer.addEventListener("click", function (event) {
   }
 });
 
+// add event listener to the order confrim button (s)
 btnConfirmOrder.addEventListener("click", orderConfirmed);
+// add event listener to main shadow
 mainShadow.addEventListener("click", function (event) {
   if (event.target === this) {
     mainShadow.style.opacity = "0";
